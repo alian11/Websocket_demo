@@ -1,5 +1,8 @@
 # Websocket_demo
-Welcome to my Websocket_demo
+Welcome to my Websocket_demo. 
+Platform: vscode.
+Execuated documents:Server:app.js
+                    Client:index.html
 Step 1:In this demo,I use node.js to create personal server.So please download nodejs fristly.
        Node.js url:https://nodejs.org/en/download/
        In my device. I choose version : windows installer(.msi) 64-bit
