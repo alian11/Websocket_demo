@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width,inital-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge0"/>
+        <title>Document</title>
+        <style></style>
+    </head>>
+
+    <body style="background-image:url(background.jpg)">
+        <!--input your message-->
+        <input style="height: 1cm;" type="text" size='40'  placeholder="Please Input Your Message"/>
+        <!--sendding button-->
+        <button style="background-color: cyan;">SEND</button>
+        <!--Public showing area-->>
+        <div></div>
+        <script>
+            var input=document.querySelector('input')
+            var button=document.querySelector('button')
+            var div=document.querySelector('div')
+            const access=0
+            const exit=1
+            const msg=2
+            //1.create websocket object
+            //define your websocket server ip address (ipv4+port)
+            var socket= new WebSocket('ws://192.168.101.79:3001')
+            //2.open event:when you connect your websocket server,trigger this event
+            socket.addEventListener('open', function () {
+                div.innerHTML='Connecting WebsocketServer successfully'
+            })
+
+            //3.Client send message to websocket server
+            button.addEventListener('click',function(){
+                var value=input.value
+                socket.send(value)
+                input.value=''
+            })
+            //4.receive the message from websocket server
+            socket.addEventListener('message',function(e){
+               //reveived data from server has three parameters:type,data,time
+               var data=JSON.parse(e.data)
+               var dv=document.createElement('div')
+               dv.innerText=data.msg +'-------'+ data.time
+               if (data.type==access){
+                   dv.style.color='green',
+                   dv.style.fontSize='130%',
+                   dv.style.textAlign='center'
+               }else if(data.type==exit){
+                   dv.style.color='red',
+                   dv.style.fontSize='130%',
+                   dv.style.textAlign='center'
+
+               }else{
+                   dv.style.color='purple',
+                   dv.style.fontSize='150%',
+                   dv.style.textAlign='left'
+                   
+
+               }
+               div.appendChild(dv)
+                
+
+            })
+        </script>
+    </body>
+</html> 
